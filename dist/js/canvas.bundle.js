@@ -207,12 +207,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _img_standLeft_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../img/standLeft.png */ "./src/img/standLeft.png");
 /* harmony import */ var _img_walkingRight_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../img/walkingRight.png */ "./src/img/walkingRight.png");
 /* harmony import */ var _img_walkingLeft_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../img/walkingLeft.png */ "./src/img/walkingLeft.png");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 // ------------------- VARIAVEIS GLOBAIS ---------------------------------------------------------------------------------------------------------
 
 
@@ -224,15 +224,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var canvas = document.querySelector("canvas");
 var c = canvas.getContext('2d'); //para renderização 2d ou 3d, por exemplo.Referencia do tipo de desenho associado ao canvas
-
 canvas.width = 1024;
 canvas.height = 576;
-var gravity = 0.5; // --------------------------------------------- PLAYER CONSTRUTOR ---------------------------------------------------------------------------------
+var gravity = 0.5;
 
+// --------------------------------------------- PLAYER CONSTRUTOR ---------------------------------------------------------------------------------
 var Player = /*#__PURE__*/function () {
   function Player() {
     _classCallCheck(this, Player);
-
     this.speed = 1;
     this.position = {
       x: 100,
@@ -271,7 +270,6 @@ var Player = /*#__PURE__*/function () {
     this.cutHeight = this.sprites.stand.height;
     this.cutWidth = this.sprites.stand.width;
   }
-
   _createClass(Player, [{
     key: "draw",
     value: function draw() {
@@ -285,25 +283,19 @@ var Player = /*#__PURE__*/function () {
       if (this.frames > this.maxFrames) this.frames = 0;
       this.position.y += this.velocity.y;
       this.position.x += this.velocity.x;
-
       if (this.position.y + this.height + this.velocity.y < canvas.height) {
         this.velocity.y += gravity;
       }
     }
   }]);
-
   return Player;
 }(); // ----------------------------------------- CONSTRUTOR PLATAFORMAS -----------------------------------------------------------------------------------
-
-
 var Platform = /*#__PURE__*/function () {
   function Platform(_ref) {
     var x = _ref.x,
-        y = _ref.y,
-        image = _ref.image;
-
+      y = _ref.y,
+      image = _ref.image;
     _classCallCheck(this, Platform);
-
     this.position = {
       x: x,
       y: y
@@ -312,33 +304,27 @@ var Platform = /*#__PURE__*/function () {
     this.width = image.width;
     this.height = image.height;
   }
-
   _createClass(Platform, [{
     key: "draw",
     value: function draw() {
       c.drawImage(this.image, this.position.x, this.position.y);
     }
   }]);
-
   return Platform;
 }(); // -------------------------------------------------------- DESENHAR PLATAFORMAS --------------------------------------------------------------
-
-
 function createImage(imageSrc) {
   var image = new Image();
   image.src = imageSrc;
   return image;
-} // ------------------------------------------------ CONSTRUTOR CENARIO ---------------------------------------------------------------------
+}
 
-
+// ------------------------------------------------ CONSTRUTOR CENARIO ---------------------------------------------------------------------
 var GenericObject = /*#__PURE__*/function () {
   function GenericObject(_ref2) {
     var x = _ref2.x,
-        y = _ref2.y,
-        image = _ref2.image;
-
+      y = _ref2.y,
+      image = _ref2.image;
     _classCallCheck(this, GenericObject);
-
     this.position = {
       x: x,
       y: y
@@ -347,18 +333,14 @@ var GenericObject = /*#__PURE__*/function () {
     this.width = image.width;
     this.height = image.height;
   }
-
   _createClass(GenericObject, [{
     key: "draw",
     value: function draw() {
       c.drawImage(this.image, this.position.x, this.position.y);
     }
   }]);
-
   return GenericObject;
 }(); // -------------------------------------------- VARIAVEIS GLOBAIS ---------------------------------------------------------------------------------
-
-
 var genericObjects = [new GenericObject({
   x: 0,
   y: 0,
@@ -371,8 +353,9 @@ var keys = {
   left: {
     pressed: false
   }
-}; // --------------------------------------- COORDENADAS CARTESIANAS DAS PLATAFORMAS -----------------------------------------------------------------
+};
 
+// --------------------------------------- COORDENADAS CARTESIANAS DAS PLATAFORMAS -----------------------------------------------------------------
 var bases = [new Platform({
   x: -3,
   y: 540,
@@ -463,8 +446,9 @@ var bases = [new Platform({
   image: createImage(_img_Big_Platform_png__WEBPACK_IMPORTED_MODULE_2__["default"])
 })];
 var person = new Player();
-var scrollOffset = 0; // ---------------------------------------------------------- RESPAWN PERSONAGEM --------------------------------------------------------------------
+var scrollOffset = 0;
 
+// ---------------------------------------------------------- RESPAWN PERSONAGEM --------------------------------------------------------------------
 function init() {
   genericObjects = [new GenericObject({
     x: 0,
@@ -563,8 +547,9 @@ function init() {
   person = new Player();
   scrollOffset = 0;
 }
+animate();
 
-animate(); // ------------------------------------------ UPDATE MOVIMENTAÇÃO E COMPARATIVOS -----------------------------------------------------------------------
+// ------------------------------------------ UPDATE MOVIMENTAÇÃO E COMPARATIVOS -----------------------------------------------------------------------
 
 function animate() {
   genericObjects.forEach(function (GenericObject) {
@@ -575,7 +560,6 @@ function animate() {
   });
   person.update();
   requestAnimationFrame(animate); //faz com que função tenha uma atualização constante, sem depender de que o navegador atualize.Geralmente a taxa é de 60fps  
-
   if (keys.right.pressed && person.position.x < 450 && scrollOffset < 10150) {
     person.velocity.x = person.speed * 0.30;
   } else if (keys.left.pressed && person.position.x > 100) {
@@ -583,7 +567,6 @@ function animate() {
   } else {
     person.velocity.x = 0;
   }
-
   if (keys.right.pressed && scrollOffset < 10150) {
     scrollOffset += 5;
     bases.forEach(function (base) {
@@ -594,25 +577,24 @@ function animate() {
     bases.forEach(function (base) {
       base.position.x += 10;
     });
-  } //Detectar colisão com a base
+  }
 
-
+  //Detectar colisão com a base
   bases.forEach(function (base) {
     if (person.position.y + person.height <= base.position.y && person.position.y + person.height + person.velocity.y >= base.position.y && person.position.x + person.width >= base.position.x && person.position.x <= base.position.x + base.width) {
       person.velocity.y = 0;
       person.jump = 0;
     }
   });
-
   if (person.position.y > canvas.height) {
     init();
   }
-} // ---------------------------------------------------------- MOVIMENTOS ---------------------------------------------------------------------------------------------
+}
 
+// ---------------------------------------------------------- MOVIMENTOS ---------------------------------------------------------------------------------------------
 
 addEventListener("keydown", function (_ref3) {
   var keyCode = _ref3.keyCode;
-
   //O "keyCode é referente ao código da tecla pressionada que acionou o eventListener." 
   switch (keyCode) {
     case 65:
@@ -624,7 +606,6 @@ addEventListener("keydown", function (_ref3) {
       person.cutHeight = person.sprites.run.height;
       person.cutWidth = person.sprites.run.width;
       break;
-
     case 68:
     case 39:
       keys.right.pressed = true;
@@ -638,7 +619,6 @@ addEventListener("keydown", function (_ref3) {
 });
 addEventListener("keyup", function (_ref4) {
   var keyCode = _ref4.keyCode;
-
   // O "keyCode é referente ao código da tecla pressionada que acionou o eventListener." 
   switch (keyCode) {
     case 87:
@@ -648,9 +628,7 @@ addEventListener("keyup", function (_ref4) {
         person.velocity.y -= 13;
         person.jump += 1;
       }
-
       break;
-
     case 65:
     case 37:
       keys.left.pressed = false;
@@ -660,12 +638,10 @@ addEventListener("keyup", function (_ref4) {
       person.cutHeight = person.sprites.stand.height;
       person.cutWidth = person.sprites.stand.width;
       break;
-
     case 83:
     case 40:
       person.velocity.y += 10;
       break;
-
     case 68:
     case 39:
       keys.right.pressed = false;
@@ -676,7 +652,8 @@ addEventListener("keyup", function (_ref4) {
       person.cutWidth = person.sprites.stand.width;
       break;
   }
-}); // --------------------------------------------------------------------------------------------------------------------------------------------------------
+});
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /***/ })
 
